@@ -6,9 +6,9 @@ def juros():
     st.title("Juros simples ")
     st.latex(r"J = P \cdot i \cdot t")
     st.text("J: Juros\nP: Capital \n i: Taxa \n t: tempo meses")
-    p = st.number_input("Entre com a Capital: ",min_value=0.00)
-    i = st.number_input("Entre com a Taxa: ",min_value=0.00)
-    t = st.number_input("Entre com a Tempo meses: ",min_value=0.00)
+    p = st.number_input("Entre com a Capital: ",min_value=0.00,step=5.00)
+    i = st.number_input("Entre com a Taxa: ",min_value=0.00,step=1.00)
+    t = st.number_input("Entre com a Tempo meses: ",min_value=0.00,step=1.00)
     J = lambda Capital,imposto,tempo: Capital*imposto*tempo
     if p and i and J:
         st.text(f"O juros vai ficar de {J(p,i,t)} em {t} meses.")
