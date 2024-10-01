@@ -10,7 +10,7 @@ def juros():
     i = st.number_input("Entre com a Taxa: ",min_value=0.00)
     t = st.number_input("Entre com a Tempo meses: ",min_value=0.00)
     J = lambda Capital,imposto,tempo: Capital*imposto*tempo
-    if p and i and j:
+    if p and i and J:
         st.text(f"O juros vai ficar de {J(p,i,t)} em {t} meses.")
     else:
         st.text("Falta de Imformação.")
