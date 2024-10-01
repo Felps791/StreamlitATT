@@ -17,7 +17,10 @@ def cotacao_atual():
     st.title("Cotações")
     moeda1 = st.selectbox('Valor da Moeda1', [k for k in moedas],0)
     moeda2 = st.selectbox('Valor da Moeda2', [k for k in moedas],1)
-
+    valor = st.number_input("Valor de Comparação",min_value=0.00,step=1.00)
+    cotacao = round(yf.Ticker(f'{moedas[moeda1]}{moedas[moeda2]}=X').info['bid'],2)
+    st.text(f"De {moeda1} para {moeda2} será de {cotacao} {moedas[moeda2]}")
+    st.text(f"Assim sendo {valor}{moedas[moeda1]} é igual a {round(valor*cotacao,2)} {moedas[moeda2]} ")
 
 
 
@@ -26,7 +29,7 @@ def calcIMC():
     IMC = lambda peso,altura : peso/(altura*altura)
     st.title("Caculadora de IMC")
     st.latex(r"\text{IMC} = \frac{\text{Peso}}{\text{Altura}^2}")
-    st.image("IMCTable.png")
+    st.image("Imagens/IMCTable.png")
     peso = st.number_input("Entrada de Peso: ",min_value=0.00)
     altura = st.number_input("Entrada de altura: ",min_value=0.00)
     if peso and altura:
