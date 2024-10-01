@@ -22,7 +22,7 @@ Ff = Fator de Frequência aplicável sobre a área, de acordo com a frequência
 da coleta  
 Fu = Fator de Uso preponderante aplicável sobre a área, de acordo com os
 registros municipais  
-Fs = Fator Socioeconômico aplicável sobre a área, de acordo com o padrão
+Fs = Fator Socioeconômico aplicável sobre a área, de acordo com o padrão  
 CGm = Custo Global Anual por m² em dourados é de R$ 1,15 que é o valor referente a ser usado.    
         ''')
     A = st.number_input("Entre com a  área do imóvel: ",min_value=0.00)
