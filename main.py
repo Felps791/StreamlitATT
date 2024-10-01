@@ -1,19 +1,82 @@
 import streamlit as st
 import yfinance as yf
 
+def TCRS_Calculo():
+    st.title("Taxa de Lixo")
+    st.latex(r"Fp = A \times (1 + Ff + Fu + Fs) x GGm")
+    st.markdown('''
+        Onde:  
+A = Área do imóvel edificado ou, não o sendo, do terreno  
+Ff = Fator de Frequência aplicável sobre a área, de acordo com a frequência
+da coleta  
+Fu = Fator de Uso preponderante aplicável sobre a área, de acordo com os
+registros municipais  
+Fs = Fator Socioeconômico aplicável sobre a área, de acordo com o padrão
+CGm = Custo Global Anual por m²      
+        ''')
+    A = st.number_input("Entre com a  área do imóvel: ",min_value=0.00)
+    Ff = st.number_input("Frequência da coleta: ",min_value=1,max_value=6)
+    match Ff:
+        case 1: Fs = 0.010989
+        case 2: Fs = 0.043956
+        case 3: Fs = 0.098901
+        case 4: Fs = 0.175824
+        case 5: Fs = 0.274725
+        case 6: Fs = 0.395605
 
-def juros():
-    st.title("Juros simples ")
+    Fu = st.selectbox('Select', ["Residencial","Misto","Serviço","Comercial I","Industrial I","Público","Outros"])
+    match Fu:
+        case "Residencial": Fu = 0.010989
+        case "Misto": Fu = 0.098901
+        case "Serviço": Fu = 0.175824
+        case "Comercial I": Fu = 0.274725
+        case "Industrial I": Fu = 0.395605
+        case "Público": Fu = 0.010989
+        case "Outros": Fu = 0.043956
+
+    Fs = st.selectbox("Fator Socioeconômico aplicável ",["Precária","Popular","Médio","Fino","Luxo"])
+    match Fs:
+        case "Precária": Fs = 0.008264
+        case "Popular": Fs = 0.033056
+        case "Médio": Fs = 0.132224
+        case "Fino": Fs = 0.297504
+        case "Luxo": Fs = 0.528952
+    
+    CGm = 1.15
+
+    TRSC = lambda A,Ff,Fu,Fs,CGm: (A * (1 + Ff + Fu + Fs))*CGm
+    if A and Ff and Fu and Fs and CGm:
+        st.text(f"O valor da taxa de lixo é de : {TRSC(A,Ff,Fu,Fs,CGm)}")
+    else:
+        st.text("Ainda não foi informada nenhuma das variaveis.")
+
+
+def jurus():
+    st.title("Jurus simples ")
     st.latex(r"J = P \cdot i \cdot t")
-    st.text("J: Juros\nP: Capital \n i: Taxa \n t: tempo meses")
-    p = st.number_input("Entre com a Capital: ",min_value=0.00,step=1.00)
-    i = st.number_input("Entre com a Taxa: ",min_value=0.00,)
-    t = st.number_input("Entre com a Tempo meses: ",min_value=0.00,step=1.00)
+    st.text("J: Jurus\nP: Capital \n i: Taxa \n t: tempo meses")
+    p = st.number_input("Entre com a Capital: ",min_value=0.00)
+    i = st.number_input("Entre com a Taxa: ",min_value=0.00)
+    t = st.number_input("Entre com a Tempo meses: ",min_value=0)
     J = lambda Capital,imposto,tempo: Capital*imposto*tempo
+    M = lambda Capital,imposto,tempo: Capital*(1 + imposto*tempo)
     if p and i and t:
-        st.text(f"O juros vai ficar de {J(p,i,t)} em {t} meses.")
+        st.text(f"O jurus vai ficar de {J(p,i,t)} em {t} meses.Com montante de {round(M(p,i,t),2)}")
     else:
         st.text("Falta de Imformação.")
+    
+    st.title("Jurus Composto ")
+    st.latex(r" J = P \cdot \left( (1 + i)^t - 1 \right)")
+    st.text("J: Jurus\nP: Capital \n i: Taxa \n t: tempo meses")
+    cp = st.number_input("Entre com Capital: ",min_value=0.00)
+    ci = st.number_input("Entre com Taxa: ",min_value=0.00)
+    ct = st.number_input("Entre Tempo meses: ",min_value=0)
+    cJ = lambda Capital,imposto,tempo: Capital*((1+imposto)**tempo - 1)
+    if cp and ci and ct:
+        st.text(f"O jurus vai ficar de {round(cJ(cp,ci,ct))} em {ct} meses. Montante {cp + round(cJ(cp,ci,ct)) }")
+    else:
+        st.text("Falta de Imformação.")
+
 
 def cotacao_atual():
     moedas = {
@@ -70,4 +133,7 @@ with st.expander("Cotações"):
     cotacao_atual()
 
 with st.expander("Jurus Simples e Composto"):
-    juros()
+    jurus()
+
+with st.expander("Calculo da taxa do lixo"):
+    TCRS_Calculo()
