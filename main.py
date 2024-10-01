@@ -14,7 +14,7 @@ def jurus():
         st.text(f"O juros vai ficar de {J(p,i,t)} em {t} meses.")
     else:
         st.text("Falta de Imformação.")
-        
+
 def cotacao_atual():
     moedas = {
             "Dólar Americano":"USD",
@@ -70,4 +70,4 @@ with st.expander("Cotações"):
     cotacao_atual()
 
 with st.expander("Jurus Simples e Composto"):
-    jurus()
+    juros()
