@@ -2,6 +2,18 @@ import streamlit as st
 import yfinance as yf
 
 
+def jurus():
+    st.title("Jurus simples ")
+    st.latex(r"J = P \cdot i \cdot t")
+    st.text("J: Jurus\nP: Capital \n i: Taxa \n t: tempo meses")
+    p = st.number_input("Entre com a Capital: ",min_value=0.00)
+    i = st.number_input("Entre com a Taxa: ",min_value=0.00)
+    t = st.number_input("Entre com a Tempo meses: ",min_value=0.00)
+    J = lambda Capital,imposto,tempo: Capital*imposto*tempo
+    if p and i and j:
+        st.text(f"O jurus vai ficar de {J(p,i,t)} em {t} meses.")
+    else:
+        st.text("Falta de Imformação.")
 def cotacao_atual():
     moedas = {
             "Dólar Americano":"USD",
@@ -21,9 +33,6 @@ def cotacao_atual():
     cotacao = round(yf.Ticker(f'{moedas[moeda1]}{moedas[moeda2]}=X').info['bid'],2)
     st.text(f"De {moeda1} para {moeda2} será de {cotacao} {moedas[moeda2]}")
     st.text(f"Assim sendo {valor}{moedas[moeda1]} é igual a {round(valor*cotacao,2)} {moedas[moeda2]} ")
-
-
-
 
 def calcIMC():
     IMC = lambda peso,altura : peso/(altura*altura)
@@ -58,3 +67,6 @@ with st.expander("IMC calculadora"):
 
 with st.expander("Cotações"):
     cotacao_atual()
+
+with st.expander("Jurus Simples e Composto"):
+    jurus()
