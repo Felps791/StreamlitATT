@@ -15,7 +15,7 @@ def AnaliseDeEntrada():
 def TCRS_Calculo():
     st.title("Taxa de Lixo")
     st.latex(r"Fp = A \times (1 + Ff + Fu + Fs) x GGm")
-    st.markdown('''
+    st.text('''
         Onde:  
 A = Área do imóvel edificado ou, não o sendo, do terreno  
 Ff = Fator de Frequência aplicável sobre a área, de acordo com a frequência
