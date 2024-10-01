@@ -2,7 +2,7 @@ import streamlit as st
 import yfinance as yf
 
 
-def jurus():
+def juros():
     st.title("Juros simples ")
     st.latex(r"J = P \cdot i \cdot t")
     st.text("J: Juros\nP: Capital \n i: Taxa \n t: tempo meses")
