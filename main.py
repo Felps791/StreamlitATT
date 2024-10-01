@@ -1,16 +1,28 @@
 import streamlit as st
 import yfinance as yf
 import numpy as np
+import matplotlib.pyplot as plt
+
+def coracao_plot():
+    st.tile("Coração plot")
+    st.latex(r"x(t) = 16 \sin^3(t)")
+    st.latex(r"y(t) = 13 \cos(t) - 5 \cos(2t) - 2 \cos(3t) - \cos(4t)")
+    intervalo = [0,np.pi]
+    
 
 def AnaliseDeEntrada():
     st.title("Anlise de sequencia Numérica")
     stringNumeros = st.text_input('Entre com uma sequencia de Numeros sepadas por espaço: ',placeholder="1 2 34 2 5 1 2") 
     if stringNumeros:
-        numeros = np.array(stringNumeros.split(" "))
+        numeros = np.array(stringNumeros.split(" "),dtype=float)
         st.markdown(f"""
                     A sequencia de números : {numeros}  
-                    Apresenta a média: {numeros.mean}
-                    
+                    Soma: {numeros.sum()}  
+                    Media: {numeros.mean()}  
+                    Desvio padrão: {np.std(numeros)}  
+                    Valor Max: {numeros.max()}  
+                    Valor Min: {numeros.min()} 
+
                     """)
 def TCRS_Calculo():
     st.title("Taxa de Lixo")
@@ -22,7 +34,7 @@ Ff = Fator de Frequência aplicável sobre a área, de acordo com a frequência
 da coleta  
 Fu = Fator de Uso preponderante aplicável sobre a área, de acordo com os
 registros municipais  
-Fs = Fator Socioeconômico aplicável sobre a área, de acordo com o padrão  
+Fs = Fator Socioeconômico aplicável sobre a área, de acordo com o padrão
 CGm = Custo Global Anual por m² em dourados é de R$ 1,15 que é o valor referente a ser usado.    
         ''')
     A = st.number_input("Entre com a  área do imóvel: ",min_value=0.00)
